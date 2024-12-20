@@ -6,17 +6,17 @@ import App from "./App.tsx";
 import { Provider } from "./provider.tsx";
 import "@/styles/globals.css";
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(
-            registration => {
-                console.log('SW registered: ', registration);
-            },
-            error => {
-                console.error('SW registration failed: ', error);
-            }
-        );
-    });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").then(
+      (registration) => {
+        console.log("SW registered: ", registration);
+      },
+      (error) => {
+        console.error("SW registration failed: ", error);
+      },
+    );
+  });
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
