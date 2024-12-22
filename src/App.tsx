@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 function App() {
   return (
     <Routes>
-      <Route element={<LoginPage />} path="/" />
+      <Route element={<LoginPage />} path="/login" />
       <Route
         element={
           <ProtectedRoute>
