@@ -11,6 +11,8 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 };
 
 function App() {
+  const { token } = useAuth();
+
   return (
     <Routes>
       <Route element={<LoginPage />} path="/login" />
@@ -22,6 +24,7 @@ function App() {
         }
         path="/menu"
       />
+      <Route element={<Navigate to={token ? "/menu" : "/login"} />} path="/" />
     </Routes>
   );
 }
