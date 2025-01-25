@@ -1,10 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import React from "react";
 
 import LoginPage from "@/pages/LoginPage.tsx";
 import { useAuth } from "@/auth/AuthProvider.tsx";
 import MenuPage from "@/pages/MenuPage.tsx";
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.JSX.Element }) => {
   const { token } = useAuth();
 
   return token ? children : <Navigate to="/login" />;
