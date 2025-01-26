@@ -1,33 +1,37 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import React from "react";
 
-import LoginPage from "@/pages/LoginPage.tsx";
-import { useAuth } from "@/auth/AuthProvider.tsx";
-import MenuPage from "@/pages/MenuPage.tsx";
+import LoginPage from "@/pages/LoginPage";
+import MenuPage from "@/pages/MenuPage";
+import { useAuth } from "@/auth/AuthProvider";
 
-const ProtectedRoute = ({ children }: { children: React.JSX.Element }) => {
-  const { token } = useAuth();
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
 
-  return token ? children : <Navigate to="/login" />;
+  debugger;
+
+  return user ? <>{children}</> : <Navigate to="/login" />;
 };
 
-function App() {
-  const { token } = useAuth();
+const App = () => (
+  <Routes>
+    <Route element={<LoginPage />} path="/login" />
+    <Route
+      element={
+        <ProtectedRoute>
+          <AuthenticatedRoutes />
+        </ProtectedRoute>
+      }
+      path="/*"
+    />
+  </Routes>
+);
 
-  return (
-    <Routes>
-      <Route element={<LoginPage />} path="/login" />
-      <Route
-        element={
-          <ProtectedRoute>
-            <MenuPage />
-          </ProtectedRoute>
-        }
-        path="/menu"
-      />
-      <Route element={<Navigate to={token ? "/menu" : "/login"} />} path="/" />
-    </Routes>
-  );
-}
+const AuthenticatedRoutes = () => (
+  <Routes>
+    <Route element={<MenuPage />} path="/menu" />
+    <Route element={<Navigate to="/menu" />} path="*" />
+  </Routes>
+);
 
 export default App;
